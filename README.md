@@ -1,6 +1,6 @@
 Compiler bash command
 
-gcc [file_name].c -o [program_name]
+gcc -Wall -std=c99 -o [program_name] [file_name].c 
 
 Run bash command
 
