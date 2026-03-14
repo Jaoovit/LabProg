@@ -39,7 +39,7 @@ int countPalindrome(FILE *textFile)
 
     while ((ch = fgetc(textFile)) != EOF)
     {
-        if (ch == ' ')
+        if (ch == ' ' || ch == '.')
         {
             currentWord[pointer] = '\0';
 

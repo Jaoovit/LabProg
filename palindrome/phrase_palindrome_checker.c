@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *palindromes[100] = {};
+char *palindromes[100];
 int palindromeCount = 0;
 
 int storePalindromes(const char *palindrome)
@@ -54,19 +54,17 @@ int findPalindrome(FILE *textFile)
     }
 
     char ch;
-    int palindromes = 0;
     char currentWord[100] = {};
     int pointer = 0;
 
     while ((ch = fgetc(textFile)) != EOF)
     {
-        if (ch == ' ')
+        if (ch == ' ' || ch == '.')
         {
             currentWord[pointer] = '\0';
 
             if (checkIfIsPalindrome(currentWord) && strlen(currentWord) > 2 && strlen(currentWord) < 11)
-                palindromes++;
-
+                storePalindromes(currentWord);
             pointer = 0;
         }
         else
@@ -77,14 +75,14 @@ int findPalindrome(FILE *textFile)
 
     currentWord[pointer] = '\0';
     if (checkIfIsPalindrome(currentWord) && strlen(currentWord) > 2 && strlen(currentWord) < 11)
-        palindromes++;
-
-    return palindromes;
+        storePalindromes(currentWord);
+    return 0;
 }
 
 int main()
 {
     FILE *textFile = fopen("phrase-palindrome-text.txt", "r");
+    findPalindrome(textFile);
     printPalindromes();
     fclose(textFile);
     return 0;
