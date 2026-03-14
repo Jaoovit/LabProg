@@ -1,5 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+char *palindromes[100] = {};
+int palindromeCount = 0;
+
+int storePalindromes(const char *palindrome)
+{
+    palindromes[palindromeCount] = malloc(strlen(palindrome) + 1);
+    strcpy(palindromes[palindromeCount], palindrome);
+    palindromeCount++;
+    return 0;
+}
+
+int printPalindromes()
+{
+    for (int i = 0; i < palindromeCount; i++)
+    {
+        printf("%s\n", palindromes[i]);
+    }
+    return 0;
+}
 
 int checkIfIsPalindrome(char charArray[])
 {
@@ -24,7 +45,7 @@ int checkIfIsPalindrome(char charArray[])
     return 0;
 }
 
-int countPalindrome(FILE *textFile)
+int findPalindrome(FILE *textFile)
 {
     if (textFile == NULL)
     {
@@ -63,8 +84,8 @@ int countPalindrome(FILE *textFile)
 
 int main()
 {
-    FILE *textFile = fopen("palindrome-text.txt", "r");
-    printf("%i", countPalindrome(textFile));
+    FILE *textFile = fopen("phrase-palindrome-text.txt", "r");
+    printPalindromes();
     fclose(textFile);
     return 0;
 }
