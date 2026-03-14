@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *palindromes[100];
+char *palindromes[100] = {};
 int palindromeCount = 0;
 
 int storePalindromes(const char *palindrome)
@@ -22,8 +22,13 @@ int printPalindromes()
     return 0;
 }
 
+char *clearString(const char *input)
+{
+}
+
 int checkIfIsPalindrome(char charArray[])
 {
+
     char invertedArray[100] = {};
     int length = strlen(charArray);
 
@@ -48,40 +53,35 @@ int checkIfIsPalindrome(char charArray[])
 int findPalindrome(FILE *textFile)
 {
     if (textFile == NULL)
-    {
-        printf("File not found!");
         return 1;
-    }
-
     char ch;
-    char currentWord[100] = {};
+    char currentPhrase[200] = {};
     int pointer = 0;
-
     while ((ch = fgetc(textFile)) != EOF)
     {
-        if (ch == ' ' || ch == '.')
+        if (ch == '.' || ch == '?' || ch == '!' || ch == ',' || ch == ';' || ch == ':')
         {
-            currentWord[pointer] = '\0';
-
-            if (checkIfIsPalindrome(currentWord) && strlen(currentWord) > 2 && strlen(currentWord) < 11)
-                storePalindromes(currentWord);
+            currentPhrase[pointer] = '\0';
+            if (strlen(currentPhrase) > 0 && checkIfIsPalindrome(currentPhrase))
+                storePalindromes(currentPhrase);
             pointer = 0;
         }
         else
         {
-            currentWord[pointer++] = ch;
+            currentPhrase[pointer++] = ch;
         }
     }
-
-    currentWord[pointer] = '\0';
-    if (checkIfIsPalindrome(currentWord) && strlen(currentWord) > 2 && strlen(currentWord) < 11)
-        storePalindromes(currentWord);
+    currentPhrase[pointer] = '\0';
+    if (strlen(currentPhrase) > 0 && checkIfIsPalindrome(currentPhrase))
+        storePalindromes(currentPhrase);
     return 0;
 }
 
 int main()
 {
     FILE *textFile = fopen("phrase-palindrome-text.txt", "r");
+    if (textFile == NULL)
+        return 0;
     findPalindrome(textFile);
     printPalindromes();
     fclose(textFile);

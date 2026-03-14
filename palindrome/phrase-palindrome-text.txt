@@ -1,3 +1,1 @@
-ARARA Exemplos deste tipo de palíndromos incluem: “Roma me tem amor”,
-“após a sopa”, “Irene ri”, “Socorram-me, subi no ônibus em
-Marrocos” e “A inter etnia” OTTO.
+Exemplos deste tipo de palíndromos incluem: “Roma me tem amor”, “após a sopa”, “Irene ri”, “Socorram-me, subi no ônibus em Marrocos” e “A inter etnia”.
