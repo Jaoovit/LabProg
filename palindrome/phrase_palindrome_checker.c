@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 char *palindromes[100] = {};
 int palindromeCount = 0;
@@ -24,10 +25,27 @@ int printPalindromes()
 
 char *clearString(const char *input)
 {
+    char *finalArray = malloc(strlen(input) + 1);
+    int pointer = 0;
+    for (int i = 0; i < strlen(input); i++)
+    {
+        if (input[i] != ' ' && input[i] != '-')
+        {
+            finalArray[pointer++] = tolower(input[i]);
+        }
+    }
+
+    finalArray[pointer] = '\0';
+
+    return finalArray;
 }
 
 int checkIfIsPalindrome(char charArray[])
 {
+    clearString(charArray);
+
+    printf("%s", clearString(charArray));
+    printf("%c", '-');
 
     char invertedArray[100] = {};
     int length = strlen(charArray);
