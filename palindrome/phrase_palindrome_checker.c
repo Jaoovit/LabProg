@@ -26,46 +26,96 @@ int printPalindromes()
 char *clearString(const char *input)
 {
     char *finalArray = malloc(strlen(input) + 1);
-    int pointer = 0;
-    for (int i = 0; i < strlen(input); i++)
+    int i = 0, pointer = 0;
+
+    while (input[i] != '\0')
     {
-        if (input[i] != ' ' && input[i] != '-')
+        unsigned char c = input[i];
+
+        if (c < 128)
         {
-            finalArray[pointer++] = tolower(input[i]);
+            if (c != ' ' && c != '-')
+                finalArray[pointer++] = tolower(c);
+            i++;
+        }
+        else
+        {
+            unsigned char next = input[i + 1];
+
+            if (c == 0xC3)
+            {
+                switch (next)
+                {
+                case 0xA1:
+                case 0xA0:
+                case 0xA3:
+                case 0xA2:
+                case 0xA4:
+                    finalArray[pointer++] = 'a';
+                    break;
+
+                case 0xA9:
+                case 0xA8:
+                case 0xAA:
+                case 0xAB:
+                    finalArray[pointer++] = 'e';
+                    break;
+
+                case 0xAD:
+                case 0xAC:
+                case 0xAE:
+                case 0xAF:
+                    finalArray[pointer++] = 'i';
+                    break;
+
+                case 0xB3:
+                case 0xB2:
+                case 0xB5:
+                case 0xB4:
+                case 0xB6:
+                    finalArray[pointer++] = 'o';
+                    break;
+
+                case 0xBA:
+                case 0xB9:
+                case 0xBB:
+                case 0xBC:
+                    finalArray[pointer++] = 'u';
+                    break;
+
+                case 0xA7:
+                    finalArray[pointer++] = 'c';
+                    break;
+                }
+            }
+
+            i += 2;
         }
     }
 
     finalArray[pointer] = '\0';
-
     return finalArray;
 }
 
 int checkIfIsPalindrome(char charArray[])
 {
-    clearString(charArray);
+    char *clean = clearString(charArray);
 
-    printf("%s", clearString(charArray));
-    printf("%c", '-');
+    int length = strlen(clean);
+    char invertedArray[200];
 
-    char invertedArray[100] = {};
-    int length = strlen(charArray);
-
-    int pointer = 0;
-
-    for (int i = length - 1; i > -1; i--)
+    for (int i = 0; i < length; i++)
     {
-        invertedArray[i] = charArray[pointer];
-        pointer++;
+        invertedArray[i] = clean[length - 1 - i];
     }
 
     invertedArray[length] = '\0';
 
-    if (strcmp(invertedArray, charArray) == 0)
-    {
-        return 1;
-    }
+    int result = strcmp(invertedArray, clean) == 0;
 
-    return 0;
+    free(clean);
+
+    return result;
 }
 
 int findPalindrome(FILE *textFile)
@@ -103,5 +153,9 @@ int main()
     findPalindrome(textFile);
     printPalindromes();
     fclose(textFile);
+    for (int i = 0; i < palindromeCount; i++)
+    {
+        free(palindromes[i]);
+    }
     return 0;
 }
