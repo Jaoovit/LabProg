@@ -23,3 +23,25 @@ Summary of best practices
  - Avoid global variables whenever possible;
 
  - If you need to use global variables, clearly document the reason and how they are used.
+
+ ---------------------------------------------------------------------------
+
+Best Practices to Avoid Memory Leaks in C
+
+ - Every malloc() should have a corresponding free().
+
+ - Clearly define who allocates memory and who frees it.
+
+ - Free memory before exiting a function (even in error cases).
+
+ - After free(), assign NULL to the pointer to avoid dangling pointers and double free errors.
+
+ - Avoid dynamic allocation inside loops whenever possible.
+
+ - Use a temporary variable when working with realloc().
+
+ - For linked structures (lists, trees), implement release functions that traverse the entire structure.
+
+ - Prefer local variables and parameter passing over dynamic allocation when possible.
+
+ - Test your program with dynamic analysis tools (e.g., Valgrind, AddressSanitizer).
