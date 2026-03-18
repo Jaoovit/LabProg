@@ -10,25 +10,21 @@ typedef struct
     float grade;
 } Student;
 
-// Global variables
-Student *students;
-int numStudents;
-
 // Function prototypes
-void addStudent(char *name, float grade);
-float calculateAverage();
+void addStudent(char *name, float grade, int numStudents, Student *students);
+float calculateAverage(int numStudents, Student *students);
 void listStudents();
 void freeMemory();
 
 // Main function
-int main(void)
+int main()
 {
     int option;
     char name[50];
     float grade;
     setlocale(LC_ALL, "PT");
-    numStudents = 0;
-    students = (Student *)malloc(10 * sizeof(Student));
+    int numStudents = 0;
+    Student *students = (Student *)malloc(10 * sizeof(Student));
 
     do
     {
@@ -47,13 +43,13 @@ int main(void)
             scanf("%s", name);
             printf("Grade: ");
             scanf("%f", &grade);
-            addStudent(name, grade);
+            addStudent(name, grade, numStudents, students);
             break;
         case 2:
-            printf("Average: %.2f\n", calculateAverage());
+            printf("Average: %.2f\n", calculateAverage(numStudents, students));
             break;
         case 3:
-            listStudents();
+            listStudents(numStudents, students);
             break;
         }
     } while (option != 0);
@@ -63,7 +59,7 @@ int main(void)
 }
 
 // Adds a student to the list
-void addStudent(char *name, float grade)
+void addStudent(char *name, float grade, int numStudents, Student *students)
 {
     if (numStudents < 10)
     {
@@ -79,7 +75,7 @@ void addStudent(char *name, float grade)
 }
 
 // Calculates the average grade
-float calculateAverage()
+float calculateAverage(int numStudents, Student *students)
 {
     float sum;
     int i;
@@ -92,7 +88,7 @@ float calculateAverage()
 }
 
 // Lists all students
-void listStudents()
+void listStudents(int numStudents, Student *students)
 {
     int i;
 
