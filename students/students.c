@@ -10,21 +10,25 @@ typedef struct
     float grade;
 } Student;
 
+// Global variables
+Student *students;
+int numStudents;
+
 // Function prototypes
-void addStudent(char *name, float grade, int numStudents, Student *students);
-float calculateAverage(int numStudents, Student *students);
+void addStudent(char *name, float grade);
+float calculateAverage();
 void listStudents();
 void freeMemory();
 
 // Main function
-int main()
+int main(void)
 {
     int option;
     char name[50];
     float grade;
     setlocale(LC_ALL, "PT");
-    int numStudents = 0;
-    Student *students = (Student *)malloc(10 * sizeof(Student));
+    numStudents = 0;
+    students = (Student *)malloc(10 * sizeof(Student));
 
     do
     {
@@ -43,23 +47,23 @@ int main()
             scanf("%s", name);
             printf("Grade: ");
             scanf("%f", &grade);
-            addStudent(name, grade, numStudents, students);
+            addStudent(name, grade);
             break;
         case 2:
-            printf("Average: %.2f\n", calculateAverage(numStudents, students));
+            printf("Average: %.2f\n", calculateAverage());
             break;
         case 3:
-            listStudents(numStudents, students);
+            listStudents();
             break;
         }
     } while (option != 0);
 
-    freeMemory(students);
+    freeMemory();
     return 0;
 }
 
 // Adds a student to the list
-void addStudent(char *name, float grade, int numStudents, Student *students)
+void addStudent(char *name, float grade)
 {
     if (numStudents < 10)
     {
@@ -75,7 +79,7 @@ void addStudent(char *name, float grade, int numStudents, Student *students)
 }
 
 // Calculates the average grade
-float calculateAverage(int numStudents, Student *students)
+float calculateAverage()
 {
     float sum;
     int i;
@@ -88,7 +92,7 @@ float calculateAverage(int numStudents, Student *students)
 }
 
 // Lists all students
-void listStudents(int numStudents, Student *students)
+void listStudents()
 {
     int i;
 
@@ -106,10 +110,8 @@ void listStudents(int numStudents, Student *students)
 }
 
 // Frees the allocated memory
-void freeMemory(Student *students)
+void freeMemory()
 {
-    free(students);
-    students = NULL;
     printf("Freeing memory...\n");
     // (memory release code omitted by the original programmer)
 }
