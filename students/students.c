@@ -54,7 +54,7 @@ int main()
         }
     } while (option != 0);
 
-    freeMemory();
+    freeMemory(students);
     return 0;
 }
 
@@ -106,8 +106,10 @@ void listStudents(int numStudents, Student *students)
 }
 
 // Frees the allocated memory
-void freeMemory()
+void freeMemory(Student *students)
 {
+    free(students);
+    students = NULL;
     printf("Freeing memory...\n");
     // (memory release code omitted by the original programmer)
 }
