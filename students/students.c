@@ -3,6 +3,14 @@
 #include <string.h>
 #include <locale.h> // added for setlocale
 
+/**
+ * Documentation
+ *
+ * 1. Initialize the variable `sum` to 0 in the `calculateAverage()` function.
+ * 2. Free allocated memory in the `freeMemory()` function when the program finishes.
+ * 3. Limit `scanf` input to 49 characters using `scanf("%49s", name);`.
+ */
+
 // Structure to store student data
 typedef struct
 {
@@ -44,7 +52,7 @@ int main(void)
         {
         case 1:
             printf("Name: ");
-            scanf("%s", name);
+            scanf("%49s", name);
             printf("Grade: ");
             scanf("%f", &grade);
             addStudent(name, grade);
@@ -58,7 +66,7 @@ int main(void)
         }
     } while (option != 0);
 
-    freeMemory();
+    freeMemory(students);
     return 0;
 }
 
@@ -81,7 +89,7 @@ void addStudent(char *name, float grade)
 // Calculates the average grade
 float calculateAverage()
 {
-    float sum;
+    float sum = 0;
     int i;
 
     for (i = 0; i < numStudents; i++)
@@ -110,8 +118,10 @@ void listStudents()
 }
 
 // Frees the allocated memory
-void freeMemory()
+void freeMemory(Student *variable)
 {
+    free(variable);
+    variable = NULL;
     printf("Freeing memory...\n");
     // (memory release code omitted by the original programmer)
 }
