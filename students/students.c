@@ -9,6 +9,9 @@
  * 1. Initialize the variable `sum` to 0 in the `calculateAverage()` function.
  * 2. Free allocated memory in the `freeMemory()` function when the program finishes.
  * 3. Limit `scanf` input to 49 characters using `scanf("%49s", name);`.
+ * 4. Add validation to check if the student list size is less than 10 before adding a new student.
+ * 5. Calculate the average only if there are students in the list to avoid division by zero.
+ * 6. Prevent failure during initial memory allocation.
  */
 
 // Structure to store student data
@@ -26,7 +29,7 @@ int numStudents;
 void addStudent(char *name, float grade);
 float calculateAverage();
 void listStudents();
-void freeMemory();
+void freeMemory(Student *variable);
 
 // Main function
 int main(void)
@@ -37,6 +40,13 @@ int main(void)
     setlocale(LC_ALL, "PT");
     numStudents = 0;
     students = (Student *)malloc(10 * sizeof(Student));
+
+    if (students == NULL)
+    {
+        printf("Sorry, the program cannot start due to insufficient memory.\n");
+        printf("Please close other programs and try again.\n");
+        return 1;
+    }
 
     do
     {
@@ -51,11 +61,18 @@ int main(void)
         switch (option)
         {
         case 1:
-            printf("Name: ");
-            scanf("%49s", name);
-            printf("Grade: ");
-            scanf("%f", &grade);
-            addStudent(name, grade);
+            if (numStudents < 10)
+            {
+                printf("Name: ");
+                scanf("%49s", name);
+                printf("Grade: ");
+                scanf("%f", &grade);
+                addStudent(name, grade);
+            }
+            else
+            {
+                printf("Student list is full\n");
+            }
             break;
         case 2:
             printf("Average: %.2f\n", calculateAverage());
@@ -73,17 +90,11 @@ int main(void)
 // Adds a student to the list
 void addStudent(char *name, float grade)
 {
-    if (numStudents < 10)
-    {
-        strcpy(students[numStudents].name, name);
-        students[numStudents].grade = grade;
-        numStudents++;
-        printf("Student added successfully!\n");
-    }
-    else
-    {
-        printf("List is full!\n");
-    }
+
+    strcpy(students[numStudents].name, name);
+    students[numStudents].grade = grade;
+    numStudents++;
+    printf("Student added successfully!\n");
 }
 
 // Calculates the average grade
@@ -92,10 +103,16 @@ float calculateAverage()
     float sum = 0;
     int i;
 
+    if (numStudents == 0)
+    {
+        return 0;
+    }
+
     for (i = 0; i < numStudents; i++)
     {
         sum = sum + students[i].grade;
     }
+
     return sum / numStudents;
 }
 
