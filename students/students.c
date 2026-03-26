@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <locale.h> // added for setlocale
+#include <locale.h>
 
 /**
  * Documentation
@@ -14,24 +14,20 @@
  * 6. Prevent failure during initial memory allocation.
  */
 
-// Structure to store student data
 typedef struct
 {
     char name[50];
     float grade;
 } Student;
 
-// Global variables
 Student *students;
 int numStudents;
 
-// Function prototypes
 void addStudent(char *name, float grade);
 float calculateAverage();
 void listStudents();
 void freeMemory(Student *variable);
 
-// Main function
 int main(void)
 {
     int option;
@@ -87,17 +83,14 @@ int main(void)
     return 0;
 }
 
-// Adds a student to the list
 void addStudent(char *name, float grade)
 {
-
     strcpy(students[numStudents].name, name);
     students[numStudents].grade = grade;
     numStudents++;
     printf("Student added successfully!\n");
 }
 
-// Calculates the average grade
 float calculateAverage()
 {
     float sum = 0;
@@ -105,6 +98,7 @@ float calculateAverage()
 
     if (numStudents == 0)
     {
+        printf("There are no registered students.\n");
         return 0;
     }
 
@@ -116,7 +110,6 @@ float calculateAverage()
     return sum / numStudents;
 }
 
-// Lists all students
 void listStudents()
 {
     int i;
@@ -134,11 +127,9 @@ void listStudents()
     }
 }
 
-// Frees the allocated memory
 void freeMemory(Student *variable)
 {
+    printf("Freeing memory...\n");
     free(variable);
     variable = NULL;
-    printf("Freeing memory...\n");
-    // (memory release code omitted by the original programmer)
 }
