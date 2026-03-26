@@ -5,11 +5,11 @@
 **  v2008/03/17
 */
 
-/*
-   If a parent process terminates before its child process,
-   the operating system automatically reassigns the child
-   to a new parent process.
-*/
+/**
+ * If a parent process terminates before its child process,
+ * the operating system automatically reassigns the child
+ * to a new parent process.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

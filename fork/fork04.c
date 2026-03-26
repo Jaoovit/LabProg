@@ -5,11 +5,11 @@
 **  v2008/03/20
 */
 
-/*
-    While the parent process is sleeping, the child process remains
-    in a zombie state, waiting for the parent process to wake up and
-    complete its termination.
-*/
+/**
+ * While the parent process is sleeping, the child process remains
+ * in a zombie state, waiting for the parent process to wake up and
+ * complete its termination.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

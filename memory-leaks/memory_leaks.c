@@ -6,7 +6,7 @@ void processDataWithMemoryLeak(int n)
 
     if (data == NULL)
     {
-        return; // withput alloc, no problem;
+        return;
     }
 
     for (int i = 0; i < n; i++)
@@ -16,7 +16,7 @@ void processDataWithMemoryLeak(int n)
 
     if (n < 5)
     {
-        return; // memory leak
+        return;
     }
 
     free(data);

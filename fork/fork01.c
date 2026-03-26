@@ -5,10 +5,10 @@
 **  v2008/03/17
 */
 
-/*
-    The fork() function creates an exact copy of the calling process.
-    It establishes a parent-child process relationship.
-*/
+/**
+ * The fork() function creates an exact copy of the calling process.
+ * It establishes a parent-child process relationship.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
